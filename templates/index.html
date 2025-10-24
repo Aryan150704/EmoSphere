@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmoSphere - Emotion Detection & Summarization</title>
+    <!-- Linking CSS file -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <img src="/static/images/logo.png" alt="Logo" class="logo">
+            <h1>EmoSphere</h1>
+            <p class="tagline">Domain-Adaptive Emotion Detection & Summarization</p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <label for="domain">Select Domain:</label>
+            <select id="domain">
+                <option value="general">General</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="legal">Legal</option>
+                <option value="education">Education</option>
+            </select>
+
+            <label for="userText">Enter Your Text:</label>
+            <textarea id="userText" rows="8" placeholder="Type or paste your text here..."></textarea>
+
+            <!-- Button to trigger analysis -->
+            <button id="analyzeBtn">Analyze</button>
+        </section>
+
+        <!-- Loader shown during processing -->
+        <div id="loader" class="hidden">🔍 Analyzing... Please wait.</div>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>© 2025 EmoSphere | Powered by Python & AI</p>
+        </footer>
+    </div>
+
+    <!-- JS file -->
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
 
