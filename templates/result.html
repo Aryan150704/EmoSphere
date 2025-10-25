@@ -1,1 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmoSphere Results</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EmoSphere Results</h1>
+            <p>Your Emotion & Summary Report</p>
+        </header>
 
+        <!-- Results Section -->
+        <div id="results">
+            <h2>Detected Emotions:</h2>
+            <div id="emotion-list"></div>
+
+            <h2>Generated Summary:</h2>
+            <p id="summary-text"></p>
+
+            <h2>Emotion Distribution Chart:</h2>
+            <img id="chart" src="" alt="Emotion Chart">
+        </div>
+
+        <!-- Back Button -->
+        <footer>
+            <button onclick="window.location.href='index.html'">← Analyze Another</button>
+        </footer>
+    </div>
+
+    <script>
+        // Get the data stored in localStorage
+        const data = JSON.parse(localStorage.getItem("emotionData"));
+
+        // If data exists, display it
+        if (data) {
+            // Display summary
+            document.getElementById("summary-text").textContent = data.summary;
+
+            // Create emotion list
+            let emotionHTML = "";
+            for (const [emotion, value] of Object.entries(data.emotions)) {
+                emotionHTML += `<p><strong>${emotion}</strong>: ${(value * 100).toFixed(1)}%</p>`;
+            }
+            document.getElementById("emotion-list").innerHTML = emotionHTML;
+
+            // Chart (when connected to Flask, this will be an image)
+            document.getElementById("chart").src = data.chart || "https://via.placeholder.com/400x200?text=Chart+Coming+Soon";
+        } else {
+            // If no data found, show message
+            document.getElementById("results").innerHTML = "<p>No analysis found. Please analyze text first.</p>";
+        }
+    </script>
+</body>
+</html>
