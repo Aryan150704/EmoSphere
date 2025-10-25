@@ -1,1 +1,98 @@
+/* =============== BASIC PAGE STYLES =============== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #f1f5f9, #e2e8f0);
+    margin: 0;
+    padding: 0;
+}
+
+/* Main centered white box */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* =============== HEADER =============== */
+header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo {
+    width: 60px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: #1e40af;
+    font-size: 2em;
+}
+
+.tagline {
+    color: #475569;
+    font-size: 0.9em;
+}
+
+/* =============== INPUT SECTION =============== */
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #334155;
+}
+
+/* Dropdown & Textbox */
+select, textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1em;
+    resize: vertical;
+}
+
+/* Analyze Button */
+button {
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+/* Loader (hidden by default) */
+#loader {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #1e40af;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8em;
+    color: #64748b;
+}
 
