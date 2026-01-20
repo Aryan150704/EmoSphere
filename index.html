@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmoSphere - Emotion Detection</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>EmoSphere - Emotion Detection & Summarization</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
             <h1>EmoSphere</h1>
-            <p class="tagline">Emotion Detection & Summarization</p>
+            <p class="tagline">Domain-Adaptive Emotion Detection & Summarization</p>
         </header>
 
+        <!-- Input Section -->
         <section class="input-section">
-            <label>Select Domain:</label>
+            <label for="domain">Select Domain:</label>
             <select id="domain">
                 <option value="general">General</option>
                 <option value="healthcare">Healthcare</option>
@@ -22,15 +26,28 @@
                 <option value="education">Education</option>
             </select>
 
-            <label>Enter Text:</label>
-            <textarea id="userText" rows="8" placeholder="Type your text here..."></textarea>
+            <label for="userText">Enter Your Text:</label>
+            <textarea
+                id="userText"
+                rows="8"
+                placeholder="Type or paste your text here..."
+            ></textarea>
 
             <button id="analyzeBtn">Analyze</button>
         </section>
 
-        <div id="loader" class="hidden">Analyzing... Please wait.</div>
+        <!-- Loader -->
+        <div id="loader" class="hidden">
+            🔍 Analyzing... Please wait.
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2025 EmoSphere | Powered by Flask & NLP</p>
+        </footer>
     </div>
 
-    <script src="/static/js/script.js"></script>
+    <!-- JS -->
+    <script src="static/js/script.js"></script>
 </body>
 </html>
