@@ -1,48 +1,41 @@
-const analyzeBtn = document.getElementById("analyzeBtn");
-const userText = document.getElementById("userText");
-const domainSelect = document.getElementById("domain");
-const loader = document.getElementById("loader");
+// Your backend API
+const API_URL = "https://emosphere-production.up.railway.app";
 
-// ✅ LIVE BACKEND URL
-const API_URL = "https://emosphere-production.up.railway.app/analyze";
-
-analyzeBtn.addEventListener("click", async () => {
-    const text = userText.value.trim();
-    const domain = domainSelect.value;
+document.getElementById("analyzeBtn").addEventListener("click", async () => {
+    
+    const text = document.getElementById("userText").value.trim();
+    const domain = document.getElementById("domain").value;
+    const loading = document.getElementById("loading");
 
     if (!text) {
-        alert("⚠️ Please enter some text before analyzing!");
+        alert("⚠️ Please enter some text.");
         return;
     }
 
-    loader.classList.remove("hidden");
+    loading.style.display = "block";
 
     try {
-        const response = await fetch(API_URL, {
+        const res = await fetch(`${API_URL}/analyze`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                text: text,
-                domain: domain
-            })
+            body: JSON.stringify({ text, domain })
         });
 
-        if (!response.ok) {
-            throw new Error("API request failed");
-        }
+        if (!res.ok) throw new Error("Backend error");
 
-        const data = await response.json();
+        const result = await res.json();
 
-        localStorage.setItem("emotionData", JSON.stringify(data));
+        // Save to local storage
+        localStorage.setItem("analysisResult", JSON.stringify(result));
 
-        loader.classList.add("hidden");
+        // Redirect to result page
         window.location.href = "result.html";
 
     } catch (error) {
-        loader.classList.add("hidden");
         alert("❌ Backend error. Please try again.");
-        console.error(error);
     }
+
+    loading.style.display = "none";
 });
