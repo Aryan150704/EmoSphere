@@ -3,53 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmoSphere Results</title>
+    <title>EmoSphere – Results</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="static/css/style.css">
 </head>
+
 <body>
+
     <div class="container">
-        <header>
-            <h1>EmoSphere Results</h1>
-            <p>Your Emotion & Summary Report</p>
-        </header>
+        <h2>Emotion Analysis Result</h2>
 
-        <!-- Results -->
-        <section id="results">
-            <h2>Detected Emotions</h2>
-            <div id="emotion-list"></div>
+        <h3>Main Emotion</h3>
+        <p id="mainEmotion" class="highlight"></p>
 
-            <h2>Generated Summary</h2>
-            <p id="summary-text"></p>
-        </section>
+        <h3>Emotion Scores</h3>
+        <ul id="emotionScores"></ul>
 
-        <!-- Back Button -->
-        <footer>
-            <button onclick="window.location.href='index.html'">
-                ← Analyze Another Text
-            </button>
-        </footer>
+        <h3>Summary</h3>
+        <p id="summary"></p>
+
+        <h3>Domain Used</h3>
+        <p id="domainUsed"></p>
+
+        <button id="backBtn">🔙 Analyze Another Text</button>
     </div>
 
-    <!-- Result Script -->
-    <script>
-        const data = JSON.parse(localStorage.getItem("emotionData"));
-
-        if (!data) {
-            document.getElementById("results").innerHTML =
-                "<p>No analysis found. Please go back and analyze text.</p>";
-        } else {
-            // Summary
-            document.getElementById("summary-text").textContent = data.summary;
-
-            // Emotions
-            let html = "";
-            for (const [emotion, value] of Object.entries(data.emotions)) {
-                html += `<p><strong>${emotion}</strong>: ${(value * 100).toFixed(1)}%</p>`;
-            }
-            document.getElementById("emotion-list").innerHTML = html;
-        }
-    </script>
+    <script src="static/js/script.js"></script>
 </body>
 </html>
