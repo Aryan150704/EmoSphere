@@ -3,51 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmoSphere - Emotion Detection & Summarization</title>
+    <title>EmoSphere – Emotion Analyzer</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
     <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>EmoSphere</h1>
-            <p class="tagline">Domain-Adaptive Emotion Detection & Summarization</p>
-        </header>
+        <h2>EmoSphere – Emotion Analyzer</h2>
 
-        <!-- Input Section -->
-        <section class="input-section">
-            <label for="domain">Select Domain:</label>
-            <select id="domain">
-                <option value="general">General</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="legal">Legal</option>
-                <option value="education">Education</option>
-            </select>
+        <label>Select Domain:</label>
+        <select id="domain">
+            <option value="General">General</option>
+            <option value="Social">Social</option>
+            <option value="Professional">Professional</option>
+        </select>
 
-            <label for="userText">Enter Your Text:</label>
-            <textarea
-                id="userText"
-                rows="8"
-                placeholder="Type or paste your text here..."
-            ></textarea>
+        <label>Enter Your Text:</label>
+        <textarea id="userText" rows="8" placeholder="Type or paste your text here..."></textarea>
 
-            <button id="analyzeBtn">Analyze</button>
-        </section>
+        <button id="analyzeBtn">Analyze</button>
 
-        <!-- Loader -->
-        <div id="loader" class="hidden">
-            🔍 Analyzing... Please wait.
-        </div>
-
-        <!-- Footer -->
-        <footer>
-            <p>© 2025 EmoSphere | Powered by Flask & NLP</p>
-        </footer>
+        <p id="loading" class="loading">⏳ Analyzing… Please wait.</p>
     </div>
 
-    <!-- JS -->
-    <script src="static/js/script.js"></script>
+    <!-- External JS -->
+    <script src="script.js"></script>
 </body>
 </html>
