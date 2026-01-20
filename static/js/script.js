@@ -1,45 +1,37 @@
-// Get references to HTML elements
 const analyzeBtn = document.getElementById("analyzeBtn");
 const userText = document.getElementById("userText");
 const domainSelect = document.getElementById("domain");
 const loader = document.getElementById("loader");
 
-// Add click event to Analyze button
 analyzeBtn.addEventListener("click", async () => {
-    const text = userText.value.trim(); // Get text input
-    const domain = domainSelect.value;  // Get selected domain
+    const text = userText.value.trim();
+    const domain = domainSelect.value;
 
-    // If no text entered, show alert
     if (!text) {
-        alert("⚠️ Please enter some text before analyzing!");
+        alert("Please enter some text!");
         return;
     }
 
-    // Show loading message
     loader.classList.remove("hidden");
 
     try {
-        // ---- (Mock response for testing before backend) ----
-        // In final version, this will call Flask API: "/analyze"
-        const mockResponse = {
-            summary: "This is a summarized version of your input text.",
-            emotions: { Joy: 0.45, Sadness: 0.25, Anger: 0.15, Fear: 0.15 },
-            chart: "" // Will hold Matplotlib chart in base64 later
-        };
+        const response = await fetch("/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text, domain })
+        });
 
-        // Simulate delay to mimic backend processing
-        await new Promise(res => setTimeout(res, 2000));
+        const data = await response.json();
 
-        // Save data locally (so result page can read it)
-        localStorage.setItem("emotionData", JSON.stringify(mockResponse));
+        localStorage.setItem("emotionData", JSON.stringify(data));
 
-        // Hide loader and redirect to result page
         loader.classList.add("hidden");
-        window.location.href = "/result.html";
-    } 
-    catch (err) {
+
+        window.location.href = "/result";
+
+    } catch (err) {
         loader.classList.add("hidden");
-        alert("❌ Error occurred while analyzing text. Please try again!");
+        alert("Server error");
         console.error(err);
     }
 });
