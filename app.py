@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from utils.lexicon import nrc_score
 
 app = Flask(__name__)
+CORS(app)   # Enable CORS for all routes
 
 @app.route("/", methods=["GET"])
 def home():
@@ -11,20 +13,19 @@ def home():
 def analyze():
     data = request.get_json()
     text = data.get("text", "")
+    domain = data.get("domain", "General")
 
     if not text.strip():
         return jsonify({"error": "No text provided"}), 400
 
-    # Emotion analysis (lexicon-based)
-    emotions = nrc_score(text)
-
-    # Simple summary (first 3 sentences or first 200 chars)
-    summary = text[:200] + ("..." if len(text) > 200 else "")
+    # Call NRC lexicon scoring
+    result = nrc_score(text)
 
     return jsonify({
-        "summary": summary,
-        "emotions": emotions
+        "domain": domain,
+        "input_text": text,
+        "analysis": result
     })
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=8000)
