@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmoSphere Results</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EmoSphere Results</h1>
+            <p>Your Emotion & Summary Report</p>
+        </header>
+
+        <!-- Results -->
+        <section id="results">
+            <h2>Detected Emotions</h2>
+            <div id="emotion-list"></div>
+
+            <h2>Generated Summary</h2>
+            <p id="summary-text"></p>
+        </section>
+
+        <!-- Back Button -->
+        <footer>
+            <button onclick="window.location.href='index.html'">
+                ← Analyze Another Text
+            </button>
+        </footer>
+    </div>
+
+    <!-- Result Script -->
+    <script>
+        const data = JSON.parse(localStorage.getItem("emotionData"));
+
+        if (!data) {
+            document.getElementById("results").innerHTML =
+                "<p>No analysis found. Please go back and analyze text.</p>";
+        } else {
+            // Summary
+            document.getElementById("summary-text").textContent = data.summary;
+
+            // Emotions
+            let html = "";
+            for (const [emotion, value] of Object.entries(data.emotions)) {
+                html += `<p><strong>${emotion}</strong>: ${(value * 100).toFixed(1)}%</p>`;
+            }
+            document.getElementById("emotion-list").innerHTML = html;
+        }
+    </script>
+</body>
+</html>
