@@ -1,13 +1,13 @@
 // Backend URL
 const API_URL = "https://emosphere-production.up.railway.app";
 
-// Detect current page
+// Detect page
 const page = window.location.pathname;
 
-// ---------------------------------------
+// ======================================
 // 1️⃣ INDEX PAGE
-// ---------------------------------------
-if (page.endsWith("index.html") || page === "/" || page === "/EmoSphere/") {
+// ======================================
+if (page.endsWith("index.html") || page === "/" || page.includes("EmoSphere")) {
 
     document.getElementById("analyzeBtn").addEventListener("click", async () => {
 
@@ -31,6 +31,7 @@ if (page.endsWith("index.html") || page === "/" || page === "/EmoSphere/") {
 
             const data = await response.json();
 
+            // Save result
             localStorage.setItem("analysisResult", JSON.stringify(data));
 
             window.location.href = "result.html";
@@ -45,9 +46,9 @@ if (page.endsWith("index.html") || page === "/" || page === "/EmoSphere/") {
 
 
 
-// ---------------------------------------
+// ======================================
 // 2️⃣ RESULT PAGE
-// ---------------------------------------
+// ======================================
 if (page.endsWith("result.html")) {
 
     const data = JSON.parse(localStorage.getItem("analysisResult"));
@@ -55,22 +56,40 @@ if (page.endsWith("result.html")) {
     if (!data) {
         alert("No result found. Please analyze again.");
         window.location.href = "index.html";
+        return;
     }
 
-    // Fill result values
-    document.getElementById("mainEmotion").textContent = data.main_emotion || "Not detected";
-    document.getElementById("summary").textContent = data.summary || "No summary available.";
-    document.getElementById("domainUsed").textContent = data.domain || "General";
+    // ---------------------------
+    // FIXED: Backend → Frontend mapping
+    // ---------------------------
+
+    // Main Emotion
+    const mainEmotion = data.emotion?.label || "Not detected";
+
+    // Summary
+    const summary = data.summary || "No summary available.";
+
+    // Domain
+    const domainUsed = data.domain || "General";
+
+    // Emotion Scores
+    const scores = data.emotion_scores || {};
+
+    // Fill page
+    document.getElementById("mainEmotion").textContent = mainEmotion;
+    document.getElementById("summary").textContent = summary;
+    document.getElementById("domainUsed").textContent = domainUsed;
 
     const ul = document.getElementById("emotionScores");
     ul.innerHTML = "";
 
-    for (let [emotion, score] of Object.entries(data.scores)) {
+    for (let [emotion, score] of Object.entries(scores)) {
         const li = document.createElement("li");
         li.textContent = `${emotion}: ${score}`;
         ul.appendChild(li);
     }
 
+    // Back button
     document.getElementById("backBtn").addEventListener("click", () => {
         window.location.href = "index.html";
     });
