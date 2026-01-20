@@ -1,48 +1,30 @@
-from flask import Flask, request, jsonify, render_template
-from utils.preprocess import preprocess_text
+from flask import Flask, request, jsonify
 from utils.lexicon import nrc_score
-from utils.bert_model import bert_emotions
-from utils.fusion import fuse_scores
-from utils.summarizer import generate_summary
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-    return render_template("index.html")
+    return "EmoSphere backend running"
 
-@app.route("/result")
-def result_page():
-    return render_template("result.html")
-
-@app.route("/predict", methods=["POST"])
-def predict():
+@app.route("/analyze", methods=["POST"])
+def analyze():
     data = request.get_json()
     text = data.get("text", "")
-    domain = data.get("domain", "general")
 
-    # Step 1: Preprocess
-    tokens = preprocess_text(text)
+    if not text.strip():
+        return jsonify({"error": "No text provided"}), 400
 
-    # Step 2: NRC scoring
-    lex_scores, evidence = nrc_score(tokens)
+    # Emotion analysis (lexicon-based)
+    emotions = nrc_score(text)
 
-    # Step 3: BERT scoring
-    bert_scores = bert_emotions(text)
-
-    # Step 4: Fusion
-    final_scores = fuse_scores(lex_scores, bert_scores)
-
-    # Step 5: BART summary
-    summary = generate_summary(final_scores, text)
+    # Simple summary (first 3 sentences or first 200 chars)
+    summary = text[:200] + ("..." if len(text) > 200 else "")
 
     return jsonify({
-        "lexicon": lex_scores,
-        "bert": bert_scores,
-        "final": final_scores,
-        "evidence": evidence,
-        "summary": summary
+        "summary": summary,
+        "emotions": emotions
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
