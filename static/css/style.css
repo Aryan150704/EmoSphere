@@ -43,10 +43,11 @@ button {
     font-size: 17px;
     border-radius: 8px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 button:hover {
-    background: #1d2b8a;
+    background: #2a38a4;
 }
 
 .loading {
@@ -54,4 +55,17 @@ button:hover {
     font-size: 14px;
     margin-top: 10px;
     display: none;
+}
+
+.highlight {
+    color: #1d2b8a;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#emotionScores li {
+    background: #eef1ff;
+    padding: 10px;
+    margin-bottom: 6px;
+    border-radius: 6px;
 }
