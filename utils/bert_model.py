@@ -2,7 +2,8 @@ from transformers import pipeline
 
 classifier = pipeline(
     "text-classification",
-    model="bhadresh-savani/bert-base-go-emotions",
+    model="SamLowe/roberta-base-go_emotions",
+
     top_k=None
 )
 
