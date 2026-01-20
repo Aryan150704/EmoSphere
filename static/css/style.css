@@ -1,53 +1,57 @@
-/* =============== BASIC PAGE STYLES =============== */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #f1f5f9, #e2e8f0);
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 900px;
-    margin: 40px auto;
+    width: 60%;
+    margin: 50px auto;
     background: white;
-    padding: 30px 40px;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-header {
+h2 {
     text-align: center;
-    margin-bottom: 25px;
+    color: #3b4cca;
 }
 
-h1 {
-    color: #1e40af;
+label {
+    font-size: 15px;
+    font-weight: bold;
 }
 
-.input-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-textarea, select {
+select, textarea {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 20px;
     padding: 12px;
+    font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #cbd5e1;
+    border: 1px solid #ccc;
 }
 
 button {
-    background: #1e40af;
+    width: 100%;
+    padding: 14px;
+    background: #3b4cca;
     color: white;
     border: none;
-    padding: 12px;
+    font-size: 17px;
     border-radius: 8px;
     cursor: pointer;
 }
 
 button:hover {
-    background: #1d4ed8;
+    background: #1d2b8a;
 }
 
-.hidden { display: none; }
+.loading {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+}
