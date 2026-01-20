@@ -1,29 +1,31 @@
 from transformers import pipeline
 
-classifier = pipeline(
+# Lightweight, accurate emotion classifier
+emotion_classifier = pipeline(
     "text-classification",
-    model="SamLowe/roberta-base-go_emotions",
+    model="j-hartmann/emotion-english-distilroberta-base",
     top_k=None
 )
 
+# Emotion groups (use your existing mapping or simplified)
 mapping = {
-    "anger": ["anger", "annoyance"],
-    "anticipation": ["anticipation"],
+    "anger": ["anger"],
+    "joy": ["joy"],
+    "sadness": ["sadness"],
+    "fear": ["fear"],
     "disgust": ["disgust"],
-    "fear": ["fear", "nervousness"],
-    "joy": ["joy", "amusement", "optimism"],
-    "sadness": ["sadness", "disappointment"],
-    "surprise": ["surprise", "realization"],
-    "trust": ["approval", "pride"]
+    "surprise": ["surprise"]
 }
 
 def bert_emotions(text):
-    outputs = classifier(text)
-    scores = {e: 0 for e in mapping}
+    outputs = emotion_classifier(text)
+    results = {emo: 0 for emo in mapping}
 
-    label_scores = {i['label']: i['score'] for i in outputs}
+    # Convert list to dict
+    label_scores = {i['label'].lower(): i['score'] for i in outputs}
 
+    # Aggregate into 6 universal emotions
     for emo, labels in mapping.items():
-        scores[emo] = sum(label_scores.get(l, 0) for l in labels)
+        results[emo] = sum(label_scores.get(l, 0) for l in labels)
 
-    return scores
+    return results
