@@ -1,23 +1,23 @@
 import json
+import os
 
-with open("nrc_lexicon.json") as f:
-    lexicon = json.load(f)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LEXICON_PATH = os.path.join(BASE_DIR, "nrc_lexicon.json")
 
-emotions = ["anger", "anticipation", "disgust", "fear", "joy", "sadness", "surprise", "trust"]
+with open(LEXICON_PATH, "r", encoding="utf-8") as f:
+    NRC = json.load(f)
 
-def nrc_score(tokens):
-    scores = {e: 0 for e in emotions}
-    evidence = {e: [] for e in emotions}
+def nrc_score(text):
+    scores = {e: 0 for e in [
+        "joy", "sadness", "anger", "fear",
+        "trust", "anticipation", "surprise", "disgust"
+    ]}
 
-    for t in tokens:
-        if t in lexicon:
-            for e in lexicon[t]:
-                scores[e] += 1
-                evidence[e].append(t)
+    words = text.lower().split()
+    for w in words:
+        if w in NRC:
+            for emotion in NRC[w]:
+                scores[emotion] += 1
 
-    total = len(tokens)
-    if total > 0:
-        for e in scores:
-            scores[e] = scores[e] / total
-
-    return scores, evidence
+    total = sum(scores.values()) or 1
+    return {k: round(v / total, 3) for k, v in scores.items()}
