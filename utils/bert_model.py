@@ -3,7 +3,6 @@ from transformers import pipeline
 classifier = pipeline(
     "text-classification",
     model="SamLowe/roberta-base-go_emotions",
-
     top_k=None
 )
 
@@ -11,10 +10,10 @@ mapping = {
     "anger": ["anger", "annoyance"],
     "anticipation": ["anticipation"],
     "disgust": ["disgust"],
-    "fear": ["fear"],
-    "joy": ["joy", "amusement"],
-    "sadness": ["sadness"],
-    "surprise": ["surprise"],
+    "fear": ["fear", "nervousness"],
+    "joy": ["joy", "amusement", "optimism"],
+    "sadness": ["sadness", "disappointment"],
+    "surprise": ["surprise", "realization"],
     "trust": ["approval", "pride"]
 }
 
