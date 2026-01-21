@@ -9,8 +9,12 @@ const page = window.location.pathname;
 // 1️⃣ INDEX PAGE
 // ======================================
 
-if (page.includes("index") || page === "/" || page === "/EmoSphere/" || page === "/EmoSphere/index.html") {
-
+if (
+    page.includes("index") ||
+    page === "/" ||
+    page === "/EmoSphere/" ||
+    page === "/EmoSphere/index.html"
+) {
 
     document.getElementById("analyzeBtn").addEventListener("click", async () => {
 
@@ -34,7 +38,6 @@ if (page.includes("index") || page === "/" || page === "/EmoSphere/" || page ===
 
             const data = await response.json();
 
-            // Save result
             localStorage.setItem("analysisResult", JSON.stringify(data));
 
             window.location.href = "result.html";
