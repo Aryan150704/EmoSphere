@@ -12,8 +12,7 @@ if (
     page.includes("index") ||
     page === "/" ||
     page === "/EmoSphere/" ||
-    page.endsWith("/EmoSphere/index.html") ||
-    page.endsWith("/index.html")
+    page === "/EmoSphere/index.html"
 ) {
 
     document.getElementById("analyzeBtn").addEventListener("click", async () => {
