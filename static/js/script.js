@@ -27,7 +27,7 @@ if (
             return;
         }
 
-        // loading.style.display = "block";
+         loading.style.display = "block";
 
         try {
             const response = await fetch(`${API_URL}/analyze`, {
@@ -63,7 +63,7 @@ if (page.endsWith("result.html")) {
     if (!data) {
         alert("No result found. Please analyze again.");
         window.location.href = "index.html";
-        return;
+        // return;
     }
 
     const mainEmotion = data.main_emotion || "Not detected";
