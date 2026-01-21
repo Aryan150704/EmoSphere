@@ -3,17 +3,18 @@ const API_URL = "https://emosphere-production.up.railway.app";
 
 // Detect page
 const page = window.location.pathname;
+console.log("Current Page:", page);
 
 // ======================================
 // 1️⃣ INDEX PAGE
 // ======================================
-
 if (
     page.includes("index") ||
     page === "/" ||
     page === "/EmoSphere/" ||
     page === "/EmoSphere/index.html"
 ) {
+    console.log("Index Page Loaded");
 
     document.getElementById("analyzeBtn").addEventListener("click", async () => {
 
@@ -55,6 +56,7 @@ if (
 // 2️⃣ RESULT PAGE
 // ======================================
 if (page.endsWith("result.html")) {
+    console.log("Result Page Loaded");
 
     const data = JSON.parse(localStorage.getItem("analysisResult"));
 
