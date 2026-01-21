@@ -10,7 +10,7 @@ const page = window.location.pathname;
 // ======================================
 
 if (page.includes("index") || page === "/" || page === "/EmoSphere/" || page === "/EmoSphere/index.html") {
-{
+
 
     document.getElementById("analyzeBtn").addEventListener("click", async () => {
 
