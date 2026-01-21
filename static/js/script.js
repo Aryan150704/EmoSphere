@@ -1,7 +1,6 @@
 // Backend URL
 const API_URL = "https://emosphere-production.up.railway.app";
 
-
 // Detect page
 const page = window.location.pathname;
 
@@ -65,13 +64,11 @@ if (page.endsWith("result.html")) {
         return;
     }
 
-    // CORRECT MAPPING
     const mainEmotion = data.main_emotion || "Not detected";
     const summary = data.summary || "No summary available.";
     const domainUsed = data.domain || "General";
     const scores = data.scores || {};
 
-    // Fill HTML
     document.getElementById("mainEmotion").textContent = mainEmotion;
     document.getElementById("summary").textContent = summary;
     document.getElementById("domainUsed").textContent = domainUsed;
@@ -85,7 +82,6 @@ if (page.endsWith("result.html")) {
         ul.appendChild(li);
     }
 
-    // Back button
     document.getElementById("backBtn").addEventListener("click", () => {
         window.location.href = "index.html";
     });
