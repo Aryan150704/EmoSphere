@@ -1,17 +1,65 @@
+// Backend URL
+const API_URL = "https://emosphere-production.up.railway.app";
+// Detect page
+const page = window.location.pathname;
+console.log("Current Page:", page);
+
+// ======================================
+// 1️⃣ INDEX PAGE
+// ======================================
+if (
+    page.includes("index") ||
+    page === "/" ||
+    page === "/EmoSphere/" ||
+    page === "/EmoSphere/index.html"
+) {
+    console.log("Index Page Loaded");
+    document.getElementById("analyzeBtn").addEventListener("click", async () => {
+        const text = document.getElementById("userText").value.trim();
+        const domain = document.getElementById("domain").value;
+        const loading = document.getElementById("loading");
+        
+        if (!text) {
+            alert("Please enter some text.");
+            return;
+        }
+        
+        loading.style.display = "block";
+        
+        try {
+            const response = await fetch(`${API_URL}/analyze`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text, domain })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            localStorage.setItem("analysisResult", JSON.stringify(data));
+            window.location.href = "result.html";
+        } catch (err) {
+            console.error("Error:", err);
+            alert("❌ Backend error. Please try again.");
+        } finally {
+            loading.style.display = "none";
+        }
+    });
+}
+
 // ======================================
 // 2️⃣ RESULT PAGE
 // ======================================
 if (page.endsWith("result.html")) {
-    (function() {
-        console.log("Result Page Loaded");
-        const data = JSON.parse(localStorage.getItem("analysisResult"));
-        
-        if (!data) {
-            alert("No result found. Please analyze again.");
-            window.location.href = "index.html";
-            return; // ✅ Now return works because we're inside a function
-        }
-        
+    console.log("Result Page Loaded");
+    const data = JSON.parse(localStorage.getItem("analysisResult"));
+    
+    if (!data) {
+        alert("No result found. Please analyze again.");
+        window.location.href = "index.html";
+    } else {
         const mainEmotion = data.main_emotion || "Not detected";
         const summary = data.summary || "No summary available.";
         const domainUsed = data.domain || "General";
@@ -32,5 +80,5 @@ if (page.endsWith("result.html")) {
         document.getElementById("backBtn").addEventListener("click", () => {
             window.location.href = "index.html";
         });
-    })();
+    }
 }
