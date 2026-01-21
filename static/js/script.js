@@ -27,7 +27,7 @@ if (
             return;
         }
 
-        loading.style.display = "block";
+        // loading.style.display = "block";
 
         try {
             const response = await fetch(`${API_URL}/analyze`, {
